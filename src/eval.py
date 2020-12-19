@@ -1,4 +1,10 @@
-
+def cluster_to_pair(clusters):
+    # Convert dictionary of clusters {cluster id : list of product indices} to list of tuple pairs (product index, cluster id)
+    pairs = []
+    for k in clusters.keys():
+        for v in clusters[k]:
+            pairs.append((v, k))
+    return pairs
 
 def f1_score(proposed, truth):
     # proposed and truth are both lists of tuples: (index, clusterid)
