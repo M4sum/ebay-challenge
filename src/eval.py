@@ -6,10 +6,10 @@ def cluster_to_pair(clusters):
             pairs.append((v, k))
     return pairs
 
-def f1_score(proposed, truth):
+def list_f1_score(proposed, truth):
     # proposed and truth are both lists of tuples: (index, clusterid)
     # Returns F1 score, or False if either precision or recall are incalculable
-    # Indexes that do not exist in either truth or proposed will be ignored
+    # Indices that do not exist in either truth or proposed will be ignored
     #
     # Actual cluster ids do not matter, what matters is whether the same ids are clustered in proposed and truth
     # Confusion matrix defined by:
@@ -41,3 +41,6 @@ def f1_score(proposed, truth):
     P = D11 / (D11 + D01)
     R = D11 / (D11 + D10)
     return 2*P*R / (P + R)
+
+def f1_score(proposed, truth):
+    return list_f1_score(cluster_to_pair(proposed), cluster_to_pair(truth))
