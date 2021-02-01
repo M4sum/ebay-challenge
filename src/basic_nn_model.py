@@ -71,7 +71,7 @@ class basic_nn_model:
         self.clusters = {}      # id -> clusterid
         output_file = open('../data/'+fn, 'w')  # write mode
         print("processing data clusters...")
-        for cat in range(1,6):
+        for cat in range(2,6):
             print("processing cat " + str(cat))
             examples = gdata[cat]
             examples_not_none = np.not_equal(examples, 0)
