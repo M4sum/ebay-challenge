@@ -245,11 +245,11 @@ def run_basic_nn_model():
     print("Parsing data, and extracting validation set...")
     p = Parser()
     attrs = p.get_category_attrs()
-    val_data, _ = p.get_validation_set()
-    test_data, _ = p.get_test_set()
+    # val_data, _ = p.get_validation_set()
+    # test_data, _ = p.get_test_set()
     data = p.data_as_dict()
-    val_truth = cluster_to_pair(p.get_validation_clusters())
-    test_truth = cluster_to_pair(p.get_test_clusters())
+    # val_truth = cluster_to_pair(p.get_validation_clusters())
+    # test_truth = cluster_to_pair(p.get_test_clusters())
     p.clean_non_validation()
 
     num_attrs = {i:20 for i in range(1,6)}
