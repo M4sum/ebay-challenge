@@ -1,9 +1,11 @@
 def cluster_to_pair(clusters):
     # Convert dictionary of clusters {cluster id : list of product indices} to list of tuple pairs (product index, cluster id)
+    print("converting to pairs...")
     pairs = []
     for k in clusters.keys():
         for v in clusters[k]:
             pairs.append((v, k))
+    print("done")
     return pairs
 
 def list_f1_score(proposed, truth):
@@ -18,13 +20,17 @@ def list_f1_score(proposed, truth):
     # D01: number of pairs with the true label clustering not having the listings clustered together but the proposed clustering having the listings clustered together
     # D11: number of pairs with both clusterings having the listings clustered together
 
+    print("finding f1 for list...")
     D00 = D10 = D01 = D11 = 0
     proposed_pairs = {}
+    missed_pairs = {}
     for i,(id1, cluser1) in enumerate(proposed):
         for id2, cluster2 in proposed[i+1:]:
+            id1, id2 = (int(id1),int(id2))
             proposed_pairs[(id1,id2)] = cluser1 == cluster2
     for i,(id1, cluser1) in enumerate(truth):
         for id2, cluster2 in truth[i+1:]:
+            id1, id2 = (int(id1),int(id2))
             true_val = cluser1 == cluster2
             if (id1,id2) in proposed_pairs: proposed_val = proposed_pairs[(id1,id2)]
             elif (id2,id1) in proposed_pairs: proposed_val = proposed_pairs[(id2,id1)]
@@ -32,14 +38,22 @@ def list_f1_score(proposed, truth):
 
             # print(id1, id2, ":", true_val, proposed_val)
             if not true_val and not proposed_val: D00 += 1
-            elif true_val and not proposed_val: D10 += 1
+            elif true_val and not proposed_val:
+                D10 += 1
+                missed_pairs[(id1,id2)] = true_val
             elif not true_val and proposed_val: D01 += 1
             elif true_val and proposed_val: D11 += 1
 
-    # print(D00, D10, D01, D11)
+    print(D00, D10, D01, D11)
     if D11 + D01 == 0 or D11 + D10 == 0: return False   #edge case, incalculable P or R
     P = D11 / (D11 + D01)
+    print("P:",P)
     R = D11 / (D11 + D10)
+    print("R:",R)
+
+    # for key in missed_pairs:
+    #     print(key)
+
     return 2*P*R / (P + R)
 
 def f1_score(proposed, truth):
