@@ -5,8 +5,6 @@ def test_f1_score0():
     truth = [(1,0),(2,1),(3,1)]
     proposed = [(1,1),(2,1),(3,1)]
     f1 = f1_score(proposed, truth)
-    # D00 = 0, D10 = 0, D01 = 2, D11 = 1
-    # P = 1/3, R = 1, F1 = 2/3 / 4/3 = 1/2
     assert(f1 == 1/2)
 
 #test that mismatched values are ignored

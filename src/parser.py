@@ -22,10 +22,8 @@ class Parser:
         f = open(self.filepath)
         i=0
         for row in f:
-            # print(row)
             row = re.sub(r'\n', "", row)
             row = row.split("\t")
-            # print(row)
             self.new_data.append(row)
             self.new_data[-1][0] = int(self.new_data[-1][0])
 
@@ -34,36 +32,22 @@ class Parser:
             self.new_data[-1][2] = images
 
             x = row[3]
-            # print(x)
             x = re.sub(r'^\(', "", x)
             x = re.sub(r'^"\(', "", x)
-            # print(x)
             x = re.sub(r'\)$', "", x)
             x = re.sub(r'""\)"', "", x)
             x = re.sub(r'\)"', "", x)
-            # print(x)
             x = re.split(":+", x)
-            # print(x)
             attr = {}
             for i in range(len(x)):
                 x[i] = re.split(",", x[i])
                 for j in range(len(x[i])): x[i][j] = self.clean_data(x[i][j])
-                # if row[-1] == '3613': print(x[i])
-            # if row[-1] == '3613': print(x)
             for i in range(len(x) - 1):
                 if i != len(x) - 2:
                     attr[x[i][-1]] = ','.join(x[i + 1][:-1])
                 else:
                     attr[x[i][-1]] = ','.join(x[i + 1])
             self.new_data[-1][3] = attr
-            # if row[-1] == '3613':
-            #     print(row)
-            #     print(x)
-            #     print(attr)
-            #     assert(False)
-            # print()
-            # i+=1
-            # if i>20: assert(False)
 
         return self.new_data
 
@@ -147,12 +131,6 @@ class Parser:
         return {k: v for k, v in sorted(attrs.items(), key=lambda item: item[1], reverse=True)}
 
     def get_category_attrs(self):
-        # print(self.get_category_attr_counts(1))
-        # print(self.get_category_attr_counts(2))
-        # print(self.get_category_attr_counts(3))
-        # print(self.get_category_attr_counts(4))
-        # print(self.get_category_attr_counts(5))
-        # assert(False)
         return {cat: list(self.get_category_attr_counts(cat).keys()) for cat in range(1,6)}
 
     def count_distinct_attr_vals(self, cat_id):

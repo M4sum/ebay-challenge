@@ -1,6 +1,6 @@
 
 class Baseline_model:
-    #baseline model, simply creating clusters based on shared attributes such as MPN, etc
+    #baseline model, simply creating clusters based on shared attributes
 
     def __init__(self, data, key_attrs, num_attrs = {1: 10, 2: 5, 3: 6, 4: 7, 5: 4}):
         self.data = data
@@ -17,6 +17,7 @@ class Baseline_model:
             if i%10000 == 0: print(str(i), "of", size)
             listing = self.data[id]
             cat = listing[0]
+            if cat > 2: continue
             attrs = listing[3]
             cluster = str(cat) + self.get_attr_string(cat, attrs)
             if cluster in self.clusters: self.clusters[cluster].append(id)
@@ -44,7 +45,6 @@ class Baseline_model:
             for id in clusters:
                 s += id + "\t" + clusters[id] + "\n"
             f.write(s)
-
 
     def get_attr_string(self, cat, attrs):
         attr_str = ""

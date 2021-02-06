@@ -51,9 +51,6 @@ def list_f1_score(proposed, truth):
     R = D11 / (D11 + D10)
     print("R:",R)
 
-    # for key in missed_pairs:
-    #     print(key)
-
     return 2*P*R / (P + R)
 
 def f1_score(proposed, truth):
