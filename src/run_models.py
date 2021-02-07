@@ -23,7 +23,7 @@ def run_baseline_model():
     model.save_clusters(pretty_clusters)
 
 
-def test_baseline_model():
+def test_baseline_model(cats = []):
     print("Parsing data...")
     p = Parser()
     print("Processing Attributes...")
@@ -36,7 +36,7 @@ def test_baseline_model():
 
     num_attrs = {1: 10, 2: 5, 3: 6, 4: 7, 5: 4}
     f1 = 0
-    for cat in range(1,6):
+    for cat in cats:
         max_attr = 5
         max_f1 = 0
         for num_i in range(4,14):
@@ -56,7 +56,7 @@ def test_baseline_model():
         model = Baseline_model(val_data, attrs, num_attrs)
         proposed = model.get_clusters()
         f1 = f1_score(proposed, val_truth)
-        print(num_attrs,"attrs:",f1)
+        print("Validation F1:",f1)
         pretty_clusters = model.get_pretty_clusters()
         model.save_clusters(pretty_clusters)
 
@@ -65,5 +65,4 @@ def test_baseline_model():
     test_model = Baseline_model(test_data, attrs, num_attrs)
     proposed = test_model.get_clusters()
     f1 = f1_score(proposed, test_truth)
-    print(num_attrs,"attrs:",f1)
-    print(test_model.get_pretty_clusters())
+    print("Test F1:",f1)
