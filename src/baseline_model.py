@@ -17,7 +17,6 @@ class Baseline_model:
             if i%10000 == 0: print(str(i), "of", size)
             listing = self.data[id]
             cat = listing[0]
-            if cat > 2: continue
             attrs = listing[3]
             cluster = str(cat) + self.get_attr_string(cat, attrs)
             if cluster in self.clusters: self.clusters[cluster].append(id)
