@@ -1,2 +1,2 @@
-# nothing-confidential
-Its a task not worth talking about
+# ebay-challenge
+Cataloging products from unstructures product databases using clustering algorithms.
