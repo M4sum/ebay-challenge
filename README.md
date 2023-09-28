@@ -1,2 +1,2 @@
 # ebay-challenge
-Cataloging products from unstructures product databases using clustering algorithms.
+produce a clustering of the e-commerce listings according to Product Level Equivalency (PLE) from unstructured product data (images and descriptions) using clustering algorithms.
